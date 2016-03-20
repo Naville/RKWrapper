@@ -39,6 +39,8 @@
 #ifdef DEBUG
             NSLog(@"RKError:%@",error.localizedDescription);
 #endif
+            NSNotificationCenter* NSC=[NSNotificationCenter defaultCenter];
+            [NSC postNotificationName:@"com.malody.replaykit.starterror" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:error.localizedDescription,@"Error",nil]];
             Status=RKError;
         }
         else{
@@ -58,14 +60,14 @@
 #ifdef DEBUG
             NSLog(@"RKError:%@",error.localizedDescription);
 #endif
+            NSNotificationCenter* NSC=[NSNotificationCenter defaultCenter];
+            [NSC postNotificationName:@"com.malody.replaykit.stoperror" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:error.localizedDescription,@"Error",nil]];
             Status=RKError;
         }
         else{
         UIViewController* rootVC=(UIViewController*)[[[[[UIApplication sharedApplication] keyWindow] subviews] objectAtIndex:0] nextResponder];
             previewViewController.previewControllerDelegate =(id<RPPreviewViewControllerDelegate>)self;
-            [rootVC presentViewController:previewViewController animated:YES completion:^(){
-                
-            }];
+            [rootVC presentViewController:previewViewController animated:YES completion:nil];
             self->isBusy=NO;
         }
 
