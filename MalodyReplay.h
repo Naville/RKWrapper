@@ -27,5 +27,5 @@
 }
 +(id)sharedInstance;
 -(int)StartRecording;
--(int)StopRecording;
+-(int)StopRecordingWithVC:(UIViewController*)rootVC;
 @end

@@ -54,7 +54,7 @@
     }];
     return Status;
 }
--(int)StopRecording{
+-(int)StopRecordingWithVC:(UIViewController*)rootVC{
     if (self->isBusy==NO) {
         return RKUninit;
     }
@@ -69,7 +69,6 @@
             Status=RKError;
         }
         else{
-        UIViewController* rootVC=(UIViewController*)[[[[[UIApplication sharedApplication] keyWindow] subviews] objectAtIndex:0] nextResponder];
             previewViewController.previewControllerDelegate =(id<RPPreviewViewControllerDelegate>)self;
             [rootVC presentViewController:previewViewController animated:YES completion:nil];
             self->isBusy=NO;
