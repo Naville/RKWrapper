@@ -20,10 +20,14 @@
     self=[super init];
     void* Handle=dlopen("/System/Library/Frameworks/ReplayKit.framework/ReplayKit", RTLD_NOW);
     if (Handle==NULL){
+        NSNotificationCenter* NSC=[NSNotificationCenter defaultCenter];
+        [NSC postNotificationName:InitErrorName object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithUTF8String:dlerror()],@"Error",nil]];
         return nil;
     }
     Class RK=objc_getClass("RPScreenRecorder");
     if (RK==nil){
+        NSNotificationCenter* NSC=[NSNotificationCenter defaultCenter];
+        [NSC postNotificationName:InitErrorName object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Class Not Found",@"Error",nil]];
         return nil;
     }
     self->Recorder=[RK sharedRecorder];
@@ -40,7 +44,7 @@
             NSLog(@"RKError:%@",error.localizedDescription);
 #endif
             NSNotificationCenter* NSC=[NSNotificationCenter defaultCenter];
-            [NSC postNotificationName:@"com.malody.replaykit.starterror" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:error.localizedDescription,@"Error",nil]];
+            [NSC postNotificationName:StartErrorName object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:error.localizedDescription,@"Error",nil]];
             Status=RKError;
         }
         else{
@@ -61,7 +65,7 @@
             NSLog(@"RKError:%@",error.localizedDescription);
 #endif
             NSNotificationCenter* NSC=[NSNotificationCenter defaultCenter];
-            [NSC postNotificationName:@"com.malody.replaykit.stoperror" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:error.localizedDescription,@"Error",nil]];
+            [NSC postNotificationName:StopErrorName object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:error.localizedDescription,@"Error",nil]];
             Status=RKError;
         }
         else{
@@ -81,6 +85,6 @@
 }
 - (void)previewController:(RPPreviewViewController *)previewController didFinishWithActivityTypes:(NSSet <NSString *> *)activityTypes {
     NSNotificationCenter* NSC=[NSNotificationCenter defaultCenter];
-    [NSC postNotificationName:@"com.malody.replaykit" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:activityTypes.allObjects,@"activityTypes",nil]];
+    [NSC postNotificationName:VCStatusName object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:activityTypes.allObjects,@"activityTypes",nil]];
 }
 @end

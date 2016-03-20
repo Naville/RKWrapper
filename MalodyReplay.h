@@ -13,6 +13,13 @@
 #define RKBusy 1830
 #define RKOK 0
 #define RKUninit 1208
+
+#define StartErrorName @"com.malody.replaykit.starterror"
+#define StopErrorName @"com.malody.replaykit.stoperror"
+#define VCStatusName @"com.malody.replaykit.activitytypes"
+#define InitErrorName @"com.malody.replaykit.dlerror"
+
+
 @interface MalodyReplay : NSObject{
     RPScreenRecorder* Recorder;
     BOOL isBusy;
