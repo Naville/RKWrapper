@@ -31,6 +31,11 @@
         return nil;
     }
     self->Recorder=[RK sharedRecorder];
+    if(self->Recorder.available==NO){
+        NSNotificationCenter* NSC=[NSNotificationCenter defaultCenter];
+        [NSC postNotificationName:InitErrorName object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"ReplayKit Not Supported",@"Error",nil]];
+        return nil;
+    }
     return self;
 }
 -(int)StartRecording{
