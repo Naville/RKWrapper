@@ -1,6 +1,6 @@
 //
-//  MalodyReplay.h
-//  MalodyReplay
+//  Replay.h
+//  Replay
 //
 //  Created by Zhang Naville on 16/3/19.
 //  Copyright © 2016年 NavilleZhang. All rights reserved.
@@ -12,6 +12,7 @@
 #define RKError 2588
 #define RKBusy 1830
 #define RKOK 0
+#define RKNILvc 2588
 #define RKUninit 1208
 
 #define StartErrorName @"com.malody.replaykit.starterror"
@@ -20,7 +21,7 @@
 #define InitErrorName @"com.malody.replaykit.dlerror"
 
 
-@interface MalodyReplay : NSObject{
+@interface Replay : NSObject{
     RPScreenRecorder* Recorder;
     BOOL isBusy;
     
